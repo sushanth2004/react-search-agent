@@ -3,6 +3,7 @@ from langchain.agents import create_agent
 from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI
 from langchain.tools import tool
+from langchain.agents.structured_output import ToolStrategy
 
 # from tavily import TavilyClient
 from langchain_tavily import TavilySearch
@@ -51,7 +52,7 @@ def main():
     llm = ChatOpenAI(model="gpt-4.1-mini")
     tools = [TavilySearch()]
 
-    agent = create_agent(model=llm, tools=tools, response_format=AgentResponse)
+    agent = create_agent(model=llm, tools=tools, response_format=ToolStrategy(AgentResponse))
 
     result = agent.invoke(
         {
